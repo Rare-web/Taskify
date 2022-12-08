@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { Todo } from "./model";
 import "./App.css";
 import InputField from "./components/InputField";
 import TodoList from "./components/TodoList";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { Todo } from "./model";
+
 const App: React.FC = () => {
-  const [todo, setTodo] = useState<string>(" ");
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
+  const [todo, setTodo] = useState<string>("");
+  const [todos, setTodos] = useState<Array<Todo>>([]);
+  const [CompletedTodos, setCompletedTodos] = useState<Array<Todo>>([]);
+
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (todo) {
       setTodos([...todos, { id: Date.now(), todo, isDone: false }]);
       setTodo("");
@@ -18,17 +21,24 @@ const App: React.FC = () => {
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
+
     console.log(result);
-    if (!destination) return;
+
+    if (!destination) {
+      return;
+    }
+
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
       return;
     }
-    let add,
-      active = todos,
-      complete = completedTodos;
+
+    let add;
+    let active = todos;
+    let complete = CompletedTodos;
+    // Source Logic
     if (source.droppableId === "TodosList") {
       add = active[source.index];
       active.splice(source.index, 1);
@@ -36,14 +46,18 @@ const App: React.FC = () => {
       add = complete[source.index];
       complete.splice(source.index, 1);
     }
+
+    // Destination Logic
     if (destination.droppableId === "TodosList") {
       active.splice(destination.index, 0, add);
     } else {
       complete.splice(destination.index, 0, add);
     }
+
     setCompletedTodos(complete);
     setTodos(active);
   };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
@@ -52,7 +66,7 @@ const App: React.FC = () => {
         <TodoList
           todos={todos}
           setTodos={setTodos}
-          completedTodos={completedTodos}
+          CompletedTodos={CompletedTodos}
           setCompletedTodos={setCompletedTodos}
         />
       </div>
