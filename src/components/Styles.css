@@ -29,8 +29,8 @@
     right: 0px;
     border: none;
     font-size: 15px;
-    background-color: #2f74c0;
-    color: white;
+    background-color: black;
+    color: rgb(24, 193, 24);
     transition: 0.2s all;
     box-shadow: 0 0 10px black;
 }
@@ -45,6 +45,7 @@
 }
 
 .container {
+
     width: 95%;
     display: flex;
     margin-top: 10px;
@@ -56,27 +57,31 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    width: 47.5%;
+    width: 45%;
     padding: 15px;
-    background-color: rgb(50, 195, 205);
+    background-color: rgb(0 0 255 / 0%);
+    border: solid white;
 }
 
 .dragactive {
-    background-color: rgb(0, 221, 236);
+    background-color: rgb(0 0 255 / 0%);
+    border: solid white;
 }
 
 .dragcomplete {
-    background-color: rgb(255, 38, 0);
+    background-color: rgb(0 0 255 / 0);
+    border: solid white;
 }
 
 .remove {
-    background-color: rgb(235, 103, 80);
+    background-color: rgb(0 0 255 / 0);
+    border: solid white;
 }
 
 .todos__heading {
     font-size: 30px;
     /* text-align: center; */
-    color: white;
+    color: rgb(24, 193, 24);
 }
 
 .todos__single {
